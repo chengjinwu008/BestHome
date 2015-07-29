@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="C:\Users\android\Desktop\BestHome2\app\libs\umeng-sdk-analytics_v5.2.2.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="c4ccdd861cf01a64a0c19e5232de8cc0e4927f5b">
+        <dex dex="C:\Users\android\Desktop\BestHome2\app\build\intermediates\pre-dexed\debug\umeng-sdk-analytics_v5.2.2-8d1d85ca58c3d5ee2ed1236d86c0c7ded00667f3.jar" />
+    </item>
+    <item
+        jar="C:\Users\android\Desktop\BestHome2\app\libs\appupdate.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="5ce8b2f43f52f6e27b4a402186126741f4abba06">
+        <dex dex="C:\Users\android\Desktop\BestHome2\app\build\intermediates\pre-dexed\debug\appupdate-fb54b5f0eeb6ed2b6b9d131c016bf84c79b9b5bf.jar" />
+    </item>
+    <item
+        jar="C:\Users\android\AppData\Local\Android\Sdk\extras\android\m2repository\com\android\support\support-v4\19.1.0\support-v4-19.1.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="85f201b380937e61a9dce6ca90ccf6872abbfb67">
+        <dex dex="C:\Users\android\Desktop\BestHome2\app\build\intermediates\pre-dexed\debug\support-v4-19.1.0-7cac7cd274426780ce2e98aed31d6a7638b626d0.jar" />
+    </item>
+    <item
+        jar="C:\Users\android\Desktop\BestHome2\app\libs\android_api_1.1_forsdk.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="610ab8a4952cfec5cc008a697790e21dec7b8d3a">
+        <dex dex="C:\Users\android\Desktop\BestHome2\app\build\intermediates\pre-dexed\debug\android_api_1.1_forsdk-5fff87eff6c744d8920c1170589d0b52d6ca7597.jar" />
+    </item>
+    <item
+        jar="C:\Users\android\Desktop\BestHome2\app\libs\galaxy_mini.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="58de9ecfba229dbb2c3eb3f45dbe284ba58100ea">
+        <dex dex="C:\Users\android\Desktop\BestHome2\app\build\intermediates\pre-dexed\debug\galaxy_mini-0b2d1c4bd288f7e75d1609fa40b8e1903090d1b5.jar" />
+    </item>
+    <item
+        jar="C:\Users\android\Desktop\BestHome2\app\libs\BaiduLBS_Android.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="e575fe3c0a55aa46079e60c3599355ec00189b73">
+        <dex dex="C:\Users\android\Desktop\BestHome2\app\build\intermediates\pre-dexed\debug\BaiduLBS_Android-61ac97f59fb40d33e471fa295e1040f9529a2947.jar" />
+    </item>
+
+</items>

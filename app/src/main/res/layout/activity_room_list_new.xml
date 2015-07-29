@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/tabhost"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <include
+            android:id="@+id/titlebar"
+            layout="@layout/layout_titlebar" />
+
+        <LinearLayout
+            android:id="@android:id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/menu_bg"
+            android:tabStripEnabled="false" >
+            <LinearLayout 
+                android:id="@+id/linHome"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+                <ImageView 
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/icon_home"/>
+                <TextView 
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/room_home"
+                    android:textColor="@drawable/detail_menu_color"/>
+            </LinearLayout>
+            <LinearLayout 
+                android:id="@+id/linIntro"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                 android:layout_weight="1"
+                 android:gravity="center"
+                android:orientation="vertical">
+                <ImageView 
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/icon_intro"/>
+                <TextView 
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/room_info"
+                    android:textColor="@drawable/detail_menu_color"/>
+            </LinearLayout>
+            <LinearLayout 
+                android:id="@+id/linNear"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                 android:layout_weight="1"
+                 android:gravity="center"
+                android:orientation="vertical">
+                <ImageView 
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/icon_nearby"/>
+                <TextView 
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/room_near"
+                    android:textColor="@drawable/detail_menu_color"/>
+            </LinearLayout>
+            <LinearLayout 
+                android:id="@+id/linMap"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                 android:layout_weight="1"
+                 android:gravity="center"
+                android:orientation="vertical">
+                <ImageView 
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/icon_map"/>
+                <TextView 
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/room_line"
+                    android:textColor="@drawable/detail_menu_color"/>
+            </LinearLayout>
+            </LinearLayout>
+
+       <!--  <FrameLayout
+            android:id="@android:id/tabcontent"
+            android:layout_width="match_parent"
+            android:layout_height="0dp" >
+        </FrameLayout> -->
+
+        <FrameLayout
+            android:id="@+id/realtabcontent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@android:id/tabs"
+            android:layout_below="@id/titlebar" >
+        </FrameLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

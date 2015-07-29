@@ -1,0 +1,162 @@
+package com.hhinns.model;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import android.content.Context;
+
+import com.hhinns.dataprocess.AjaxStatus;
+import com.hhinns.dataprocess.AsyncGetData;
+import com.hhinns.dataprocess.BaseModel;
+import com.hhinns.dataprocess.BaseNewModel;
+import com.hhinns.dataprocess.BeeCallback;
+import com.hhinns.dataprocess.HashMapCallBack;
+import com.hhinns.library.CommonUtils;
+import com.hhinns.library.ProtocolConst;
+import com.hhinns.main.MainActivity;
+
+public class ProccessForNearBy extends BaseNewModel {
+	
+	public List<Map<String, String>> nearList = null;
+	public ProccessForNearBy(Context context) {
+		super(context);
+		nearList = new ArrayList<Map<String,String>>();
+	}
+	
+	public void nearNew(String lon,String lat)
+	{
+		String url=String.format("?c=nearby&a=getnearbys&lat=%s&lon=%s"
+				,lat,lon );
+		aq.ajax(url, JSONObject.class, this, "callback");
+				
+//		new AsyncGetData(mContext).doMethod(new HashMapCallBack() {
+//			
+//			@Override
+//			public void successHandler(JSONObject obj, AjaxStatus status) {
+//				// TODO Auto-generated method stub
+//				
+//			}
+//			
+//			@Override
+//			public void errorHandler() {
+//				// TODO Auto-generated method stub
+//				
+//			}
+//		}, url);
+	}
+	
+	public void callback(String url, JSONObject obj, AjaxStatus status)
+	{
+		try {
+			if(null==obj)
+				return;
+//			ProccessForNearBy.this.callback(url, obj, status);
+			String responseStatus = obj.optString("status");
+
+			if (responseStatus.equals("ok")) {
+				if(null!=obj.optJSONArray("data"))
+				{
+				JSONArray data = obj.optJSONArray("data");
+				if (!nearList.isEmpty())
+					nearList.clear();
+				if (null != data && data.length() > 0) {
+					Map<String, String> map = null;
+					for (int i = 0; i < data.length(); i++) {
+						map = new HashMap<String, String>();
+						JSONObject items = data.getJSONObject(i);
+						map.put("id", items.getString("id"));
+						map.put("name",
+								items.getString("build_name"));
+						map.put("price",
+								items.getString("room_price"));
+						map.put("lat",
+								items.getString("lat"));
+						map.put("lon",
+								items.getString("lon"));
+						map.put("dis",
+								items.getString("distance"));
+						map.put("address",
+								items.getString("build_address"));
+						map.put("desc",
+								items.getString("build_desc"));
+						map.put("phone",
+								items.getString("build_telephone"));
+						nearList.add(map);
+					}
+				}
+				}else
+				{
+					if(obj.optJSONObject("data")==null)
+					{
+						ProccessForNearBy.this.OnMessageResponse(url, obj, status);
+						return;
+					}
+					if (!nearList.isEmpty())
+						nearList.clear();
+					Map<String, String> map = new HashMap<String, String>();
+					JSONObject items = obj.optJSONObject("data");
+					map.put("id", items.getString("id"));
+					map.put("name",
+							items.getString("build_name"));
+					map.put("price",
+							items.getString("room_price"));
+					map.put("lat",
+							items.getString("lat"));
+					map.put("lon",
+							items.getString("lon"));
+					map.put("dis",
+							items.getString("distance"));
+					map.put("address",
+							items.getString("build_address"));
+					map.put("desc",
+							items.getString("build_desc"));
+					map.put("phone",
+							items.getString("build_telephone"));
+					nearList.add(map);
+					
+				}
+			}
+			ProccessForNearBy.this.OnMessageResponse(url, obj, status);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void feedBack(String name,String phone,String email,String text)
+	{
+		String url = "?c=feedback&a=addfeedback";
+		if (!super.checkNet(mContext))
+			return;
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("name",name);
+		params.put("mobile", phone);
+		params.put("email", email);
+		params.put("content",text);
+		aq.ajax(url, params,  JSONObject.class, this, "callbackfeedback");
+	}
+	
+	public void callbackfeedback(String url, JSONObject obj, AjaxStatus status)
+	{
+		try {
+			if(null==obj)
+				return;
+			String responseStatus = obj.optString("status");
+
+			if (responseStatus.equals("ok")) {
+				String data = obj.optString("data");
+				CommonUtils.showToast(mContext, "提交意见反馈成功");
+				
+			}
+			ProccessForNearBy.this.OnMessageResponse(url, obj, status);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+	}
+
+}

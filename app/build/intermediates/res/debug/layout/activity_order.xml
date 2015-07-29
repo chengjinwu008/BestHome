@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/icon_bg"
+    android:orientation="vertical" >
+
+    <include layout="@layout/layout_titlebar" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+                 <LinearLayout 
+                     android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/icon_bg_inpu"
+                     >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="20dp" >
+
+                    <ImageView
+                        android:layout_width="33dp"
+                        android:layout_height="29dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/icon_city" />
+
+                    <TextView
+                        android:id="@+id/tvCurCity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:singleLine="true"
+                        android:text="城市：西安"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp" />
+
+                    <Button
+                        android:id="@+id/btnSelectCity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:background="@android:color/transparent"
+                        android:drawablePadding="5dp"
+                        android:drawableRight="@drawable/icon_arrow"
+                        android:text="其它城市"
+                        android:textColor="@color/black" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/dash_line" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="20dp" >
+
+                    <ImageView
+                        android:layout_width="33dp"
+                        android:layout_height="29dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/icon_shoparea" />
+
+                    <TextView
+                        android:id="@+id/tvCurShopArea"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:singleLine="true"
+                        android:text="商圈："
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp" />
+
+                    <Button
+                        android:id="@+id/btnSelectShopArea"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:background="@android:color/transparent"
+                        android:drawablePadding="5dp"
+                        android:drawableRight="@drawable/icon_arrow"
+                        android:text="其它商圈"
+                        android:textColor="@color/black" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/dash_line" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <ImageView
+                        android:layout_width="33dp"
+                        android:layout_height="29dp"
+                        android:layout_margin="20dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/icon_date" />
+
+                    <RelativeLayout
+                        android:id="@+id/rlEnterDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1" >
+
+                        <TextView
+                            android:id="@+id/tvEnterDate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:singleLine="true"
+                            android:text="@string/enter_date"
+                            android:textColor="@color/gray" />
+
+                        <TextView
+                            android:id="@+id/tvEnterDay"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/tvEnterDate"
+                            android:singleLine="true"
+                            android:text="16"
+                            android:textColor="@android:color/black"
+                            android:textSize="32sp" />
+
+                        <TextView
+                            android:id="@+id/tvEnterMonth"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/tvEnterDate"
+                            android:layout_marginLeft="10dp"
+                            android:layout_toRightOf="@id/tvEnterDay"
+                            android:singleLine="true"
+                            android:text="8月"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/tvEnterWeek"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/tvEnterMonth"
+                            android:layout_marginLeft="7dp"
+                            android:layout_toRightOf="@id/tvEnterDay"
+                            android:singleLine="true"
+                            android:text="周四"
+                            android:textColor="@android:color/black" />
+
+                        <ImageView
+                            android:layout_width="10dp"
+                            android:layout_height="15dp"
+                            android:layout_below="@id/tvEnterDate"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_toRightOf="@id/tvEnterMonth"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/icon_arrow" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rlOutDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1" >
+
+                        <TextView
+                            android:id="@+id/tvOutDate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:singleLine="true"
+                            android:text="@string/out_date"
+                            android:textColor="@color/gray" />
+
+                        <TextView
+                            android:id="@+id/tvOutDay"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/tvOutDate"
+                            android:singleLine="true"
+                            android:text="18"
+                            android:textColor="@android:color/black"
+                            android:textSize="32sp" />
+
+                        <TextView
+                            android:id="@+id/tvOutMonth"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/tvOutDate"
+                            android:layout_marginLeft="10dp"
+                            android:layout_toRightOf="@id/tvOutDay"
+                            android:singleLine="true"
+                            android:text="8月"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/tvOutWeek"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/tvOutMonth"
+                            android:layout_marginLeft="7dp"
+                            android:layout_toRightOf="@id/tvOutDay"
+                            android:singleLine="true"
+                            android:text="周六"
+                            android:textColor="@android:color/black" />
+
+                        <ImageView
+                            android:layout_width="10dp"
+                            android:layout_height="15dp"
+                            android:layout_below="@id/tvOutDate"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_toRightOf="@id/tvOutMonth"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/icon_arrow" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btnOK"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="60dp"
+                android:layout_marginLeft="20dp"
+                 android:layout_marginRight="20dp"
+                android:background="@drawable/button_orange"
+                android:drawable="@drawable/icon_search"
+                android:drawablePadding="5dp"
+                android:gravity="center"
+              >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_search"/>
+                <TextView 
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                     android:text="@string/ok"
+                android:textColor="@android:color/white"
+                android:textSize="16sp" />
+                </LinearLayout>
+        </LinearLayout>
+
+        
+    </RelativeLayout>
+
+</LinearLayout><!-- From: file:/C:/Users/android/Desktop/BestHome2/app/src/main/res/layout/activity_order.xml -->

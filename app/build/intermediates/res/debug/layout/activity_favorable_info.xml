@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/icon_bg"
+    android:orientation="vertical" >
+
+    <include layout="@layout/layout_titlebar" />
+    <LinearLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingRight="10dp"
+        android:gravity="right"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:background="@color/gray_A"
+        android:orientation="horizontal">
+        <TextView 
+            android:id="@+id/tvDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:layout_marginRight="20dp"/>
+         <TextView 
+            android:id="@+id/tvCity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="成都"
+            android:visibility="gone"
+            android:layout_marginRight="20dp"/>
+          <TextView 
+            android:id="@+id/tvNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            />
+    </LinearLayout>
+     <com.hhinns.view.listview.XListView
+        android:id="@+id/listView"
+        style="@style/ListViewNormalStyle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+         android:divider="@drawable/solid_line"
+        android:listSelector="@drawable/item_selector" />
+
+</LinearLayout><!-- From: file:/C:/Users/android/Desktop/BestHome2/app/src/main/res/layout/activity_favorable_info.xml -->

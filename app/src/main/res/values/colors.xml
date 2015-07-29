@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="black">#FF595959</color>
+    <color name="orange">#FFFF7900</color>
+    <color name="gray">#FF999999</color>
+    <color name="bgBanner">#FFCED1D6</color>
+    <color name="bgTab">#FFEBEBEB</color>
+    <color name="green">#FF3DAE38</color>
+    <color name="gray_A">#FFCED1D6</color>
+    <color name="bgMemberCenter">#FFEEEEEE</color>
+    <color name="infoTextColor">#FF565656</color>
+    <color name="reservation_type_bg">#EAEAEA</color>
+    <color name="orange_res">#EE4C03</color>
+    
+    <!-- my  date -->
+    <color name="transparent">#00000000</color>
+    <color name="calendar_background">#FFcb9e41</color>
+	<color name="selection">#FF008F28</color>	
+	<color name="calendar_zhe_day">#FFF2F2F2</color>
+	<color name="event_center">#ff6bd697</color>
+	<color name="noMonth">#FFAAAAAA</color>
+	<color name="ToDayText">#ffc2a53d</color>
+	<color name="Text">#FF333333</color>
+	<color name="Text_Month">#FF222222</color>
+	<color name="title_text_6">#FFF2F2F2</color>
+	<color name="title_text_7">#FFF2F2F2</color>
+	<color name="color_2">#FFC4C4C4</color>
+	<color name="date_title_color">#AAAAAA</color>
+	<color name="blue">#00BA35</color>
+	<color name="red">#FF5D00</color>
+	<color name="detail_date_bg">#FFF2F2F2</color>
+    <color name="white">#FFF2F2F2</color>
+    <color name="select_text_color">#FFFFFFFF</color>
+</resources>

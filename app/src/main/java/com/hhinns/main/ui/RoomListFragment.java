@@ -1,0 +1,101 @@
+package com.hhinns.main.ui;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import com.hhinns.adapter.RoomListFragmentAdapter;
+import com.hhinns.dataprocess.AjaxStatus;
+import com.hhinns.dataprocess.BusinessResponse;
+import com.hhinns.library.CommonUtils;
+import com.hhinns.library.RoomCallBack;
+import com.hhinns.main.LoginActivity;
+import com.hhinns.main.MemberCenter;
+import com.hhinns.main.R;
+import com.hhinns.main.ReservationActivity;
+import com.hhinns.main.RoomListActivity;
+import com.hhinns.model.ProccessForNearBy;
+
+public class RoomListFragment extends BaseFragment implements BusinessResponse{
+	private View mView = null;
+	private TextView mTvAddress = null;
+
+	private ListView mListView = null;
+	private RoomListFragmentAdapter mAdapter = null;
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		mView = inflater.inflate(R.layout.fragment_room_list, container, false);
+		initComponents();
+		return mView;
+	}
+
+	private void initComponents() {
+		mTvAddress = (TextView) mView.findViewById(R.id.tvAddress);
+		mTvAddress.setText("地址："+RoomListActivity.address);
+
+		mListView = (ListView) mView.findViewById(R.id.listView);
+		RoomListActivity.dataModel.rooms(RoomListActivity.id);
+		RoomListActivity.dataModel.addResponseListener(this);
+		
+		bindDataToListView();
+//		getData();
+	}
+
+	private void bindDataToListView() {
+		mAdapter = new RoomListFragmentAdapter(
+				mActivity.getApplicationContext(), RoomListActivity.dataModel.roomlList,new RoomCallBack() {
+					
+					@Override
+					public void callBack(int pos) {
+						// TODO Auto-generated method stub
+						if(CommonUtils.getSharedPreFerences(getActivity(), CommonUtils.SHARED_USER_NAME).equals(""))
+						{
+							CommonUtils.changeActivity(getActivity(), LoginActivity.class);
+						}else
+						{
+							
+						Intent intent = new Intent(getActivity(),ReservationActivity.class);
+						intent.putExtra("hotelId", RoomListActivity.dataModel.roomlList.get(pos).get("id"));
+						intent.putExtra("roomType", RoomListActivity.dataModel.roomlList.get(pos).get("roomtypeid"));
+						intent.putExtra("maxNum", RoomListActivity.dataModel.roomlList.get(pos).get("count"));
+						if(RoomListActivity.dataModel.roomlList.get(pos).get("special").equals("是"))
+						{
+							intent.putExtra("special", "1");	
+						}else
+						{
+							intent.putExtra("special", "0");
+						}
+						intent.putExtra("price", RoomListActivity.dataModel.roomlList.get(pos).get("price"));
+						intent.putExtra("roomTypeText", RoomListActivity.dataModel.roomlList.get(pos).get("roomtype"));
+						getActivity().startActivity(intent);
+						}
+					}
+				});
+		mListView.setAdapter(mAdapter);
+	}
+
+	@Override
+	public void OnMessageResponse(String url, JSONObject jo, AjaxStatus status)
+			throws JSONException {
+		// TODO Auto-generated method stub
+		String responseStatus = jo.optString("status");
+		if(null!=responseStatus&&responseStatus.equals("ok"))
+		{
+		mAdapter.notifyDataSetChanged();
+		}
+	}
+}

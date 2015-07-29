@@ -1,0 +1,6 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@drawable/icon_person_n" android:state_selected="false"></item>
+    <item android:drawable="@drawable/icon_person_s" android:state_selected="true"></item>
+
+</selector><!-- From: file:/C:/Users/android/Desktop/BestHome2/app/src/main/res/drawable/icon_person.xml -->

@@ -1,0 +1,481 @@
+package com.hhinns.library;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Locale;
+import java.util.TimeZone;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import android.app.Activity;
+import android.content.ContentResolver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.net.Uri;
+import android.provider.ContactsContract.CommonDataKinds.Phone;
+import android.text.TextUtils;
+import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.TextView;
+
+import com.hhinns.main.R;
+import com.hhinns.view.ToastView;
+
+public class CommonUtils {
+	private static final String TAG = CommonUtils.class.getSimpleName();
+	public static final String BASE_URL = "http://www.hhinns.com/appAPI/";
+//	public static final String BASE_URL = "http://1258830100.qy.iwanqi.cn/";
+	public static final String NEW_BASE_URL = "http://1.85.8.194/client/";
+//	public static final String NEW_BASE_URL = "http://192.168.0.189:808/ym_website/client/";
+	public static final String SHARED_NAME = "sxjd";
+	public static final String SHARED_USER_NAME = "name";
+	public static final String SHARED_USER_PHONE = "phone";
+	public static final String SHARED_USER_NICKNAME = "nickname";
+	public static String IMAGE_PATH = "/hotelimge/cache/";
+
+	private CommonUtils() {
+
+	}
+
+	/**
+	 * 通过反射构建类
+	 * 
+	 * @param className
+	 *            类名
+	 * @return 类
+	 */
+	public static Class<?> buildComponent(Context context, String className) {
+		if (!TextUtils.isEmpty(className)) {
+			Class<?> result = null;
+			try {
+				result = Class.forName(String.format("%s.%s",
+						context.getPackageName(), className));
+			} catch (ClassNotFoundException ex) {
+				Log.e(TAG, ex.getMessage());
+			} catch (LinkageError ex) {
+				Log.e(TAG, ex.getMessage());
+			}
+			return result;
+		}
+		return null;
+	}
+
+	/**
+	 * 通过反射构建类
+	 * 
+	 * @param packageName
+	 *            包名
+	 * @param className
+	 *            类名
+	 * @return 类
+	 */
+	public static Class<?> buildClass(String packageName, String className) {
+		if (!TextUtils.isEmpty(packageName) && !TextUtils.isEmpty(className)) {
+			className = String.format("%s.%s", packageName, className);
+			if (!TextUtils.isEmpty(className)) {
+				Class<?> result = null;
+				try {
+					result = Class.forName(className);
+				} catch (ClassNotFoundException ex) {
+					Log.e(TAG, ex.getMessage());
+				} catch (LinkageError ex) {
+					Log.e(TAG, ex.getMessage());
+				}
+				return result;
+			}
+			return null;
+		}
+		return null;
+	}
+
+	public static void changeActivity(Context context, Class<?> toClass) {
+		Intent intent = new Intent(context, toClass);
+		context.startActivity(intent);
+	}
+
+	public static void changeActivity(Context context, Class<?> toClass,
+			String key, String value) {
+		Intent intent = new Intent(context, toClass);
+		intent.putExtra(key, value);
+		context.startActivity(intent);
+	}
+
+	public static void sendMSG(Activity context, String person, String msg) {
+		Uri uri = Uri.parse("smsto:" + person);
+		Intent it = new Intent(Intent.ACTION_SENDTO, uri);
+		it.putExtra("sms_body", msg);
+		context.startActivity(it);
+	}
+	
+	public static void callPhone(Activity context, String number) {
+		 Intent intent = new Intent(Intent.ACTION_CALL,Uri.parse("tel:"+number));  
+		 context.startActivity(intent);  
+	}
+
+	public static boolean networkIsAvaiable(Context context) {
+		ConnectivityManager connManager = null;
+		NetworkInfo networkInfo = null;
+		boolean result = false;
+		try {
+			connManager = (ConnectivityManager) context
+					.getSystemService(Context.CONNECTIVITY_SERVICE);
+			networkInfo = connManager.getActiveNetworkInfo();
+			if (networkInfo != null) {
+				result = networkInfo.isAvailable();
+			}
+			if (!result) {
+				// alert(context, "网络不可用");
+			}
+			return result;
+		} catch (Exception ex) {
+			System.out.println("Common:networkIsAvaiable---->"
+					+ ex.getMessage());
+			return result;
+		} finally {
+			connManager = null;
+			networkInfo = null;
+		}
+	}
+
+	public static void showToast(Context context, String str) {
+		ToastView tv = new ToastView(context, str);
+		tv.setGravity(Gravity.CENTER, 0, 0);
+		tv.show();
+	}
+
+	/**
+	 * 正则匹配手机号
+	 * 
+	 * @param str
+	 * @return
+	 */
+	public static boolean matcherPhone(String str) {
+		Pattern pattern = Pattern
+				.compile("^((13[0-9])|(15[^4,\\D])|(18[0-9]))\\d{8}$");
+		Matcher matcher = pattern.matcher(str);
+		return matcher.matches();
+	}
+
+	public static boolean isbigthantoday(String date_) {
+		boolean isbig = true;
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		Date curDate = new Date(System.currentTimeMillis());
+		String str = formatter.format(curDate);
+		String str_arr[] = str.split("-");
+		String str_old[] = date_.split("-");
+
+		if (Integer.parseInt(str_old[0]) > Integer.parseInt(str_arr[0])) {
+			return isbig;
+		} else if (Integer.parseInt(str_old[1]) > Integer.parseInt(str_arr[1])) {
+			return isbig;
+		} else if (Integer.parseInt(str_old[2]) >= Integer.parseInt(str_arr[2])) {
+			return isbig;
+		} else {
+			isbig = false;
+		}
+
+		return isbig;
+	}
+	
+	public static boolean isbigthanend(String start,String end) {
+		boolean isbig = false;
+		String str_end[] = end.split("-");
+		String str_start[] = start.split("-");
+
+		if (Integer.parseInt(str_start[0]) > Integer.parseInt(str_end[0])) {
+			isbig = true;
+			return isbig;
+		} if (Integer.parseInt(str_start[0]) == Integer.parseInt(str_end[0])&&Integer.parseInt(str_start[1]) > Integer.parseInt(str_end[1])) {
+			isbig = true;
+			return isbig;
+		} else if (Integer.parseInt(str_start[0]) == Integer.parseInt(str_end[0])
+				&&Integer.parseInt(str_start[1])== Integer.parseInt(str_end[1])
+				&&Integer.parseInt(str_start[2]) >= Integer.parseInt(str_end[2])) {
+			isbig = true;
+			return isbig;
+		} else {
+			isbig = false;
+		}
+
+		return isbig;
+	}
+
+	public static String getDate() {
+		String date = null;
+		Calendar calendar = Calendar.getInstance();
+		date = calendar.get(Calendar.YEAR) + "-" + (calendar.get(Calendar.MONTH)+1)
+				+ "-" + calendar.get(Calendar.DAY_OF_MONTH) 
+				+"-" +getDayOfWeek(calendar.get(Calendar.DAY_OF_WEEK));
+
+		return date;
+	}
+	
+	public static String getStringByCalender(Calendar calendar) {
+		String date = null;
+		date = calendar.get(Calendar.YEAR) + "-" + (calendar.get(Calendar.MONTH)+1)
+				+ "-" + calendar.get(Calendar.DAY_OF_MONTH) 
+				;
+
+		return date;
+	}
+
+	/**
+	 * get next day
+	 * 
+	 * @param days
+	 * @return
+	 */
+	public static String getInternalDateByDay(int days) {
+		String date = null;
+		Calendar now = Calendar.getInstance(TimeZone.getDefault());
+		now.add(Calendar.DATE, days);
+		date = now.get(Calendar.YEAR) + "-" + (now.get(Calendar.MONTH)+1) + "-"
+				+ now.get(Calendar.DAY_OF_MONTH) 
+				+"-" +getDayOfWeek(now.get(Calendar.DAY_OF_WEEK));
+		return date;
+	}
+
+	public static String getDayOfWeek(int i) {
+		String day = null;
+		switch (i) {
+		case 2:
+			day = "周一";
+			break;
+		case 3:
+			day = "周二";
+			break;
+		case 4:
+			day = "周三";
+			break;
+		case 5:
+			day = "周四";
+			break;
+		case 6:
+			day = "周五";
+			break;
+		case 7:
+			day = "周六";
+			break;
+		case 1:
+			day = "周日";
+			break;
+
+		default:
+			break;
+		}
+
+		return day;
+	}
+	
+	public static int getCalculateSize(Context context, int orginSize) {
+
+		DisplayMetrics metric = null;
+		try {
+			metric = new DisplayMetrics();
+			((Activity) context).getWindowManager().getDefaultDisplay()
+					.getMetrics(metric);
+			return orginSize * metric.densityDpi / 160;
+		} catch (Exception ex) {
+			return orginSize;
+		} finally {
+			metric = null;
+		}
+	}
+	
+	
+	public static void saveSharedPreFerences(Context context, String key,
+			String value) {
+		SharedPreferences sp = context.getSharedPreferences(
+				SHARED_NAME,
+				Context.MODE_PRIVATE);
+		Editor editor = sp.edit();
+		editor.putString(key, value);
+		editor.commit();
+	}
+
+	public static String getSharedPreFerences(Context context, String key) {
+		SharedPreferences sp = context.getSharedPreferences(
+				SHARED_NAME,
+				Context.MODE_PRIVATE);
+		String str = sp.getString(key, "");
+
+		return str;
+	}
+	
+	public static int getDaysBy(String begin,String end)
+	{
+//		begin = String.format("%s %s", begin,"00:00:00");
+//		end = String.format("%s %s", end,"00:00:00");
+		SimpleDateFormat  simpleDateFormat = new  SimpleDateFormat("yyyy-MM-dd",Locale.ENGLISH);
+		Date date1 = null;
+		try {
+		date1 = (Date)simpleDateFormat.parse(begin);
+		} catch (Exception e) {
+		e.printStackTrace();
+		}  
+		Date date2 = null;
+		try {
+		date2 = (Date) simpleDateFormat.parse(end);
+		} catch (Exception e) {
+		e.printStackTrace();
+		}  
+		GregorianCalendar cal1 = new GregorianCalendar();  
+		GregorianCalendar cal2 = new GregorianCalendar();  
+		if(date1==null)
+			return 0;
+		if(date2==null)
+			return 0;
+		cal1.setTime(date1);  
+		cal2.setTime(date2);  
+		double dayCount = (cal2.getTimeInMillis()-cal1.getTimeInMillis())/(1000*3600*24);
+		return (int)dayCount;
+	}
+	
+	public static Bitmap getMapMarkerIcon(String title,String price,Context context,Activity act)
+	{
+
+		Bitmap bmp = Bitmap.createBitmap(getCalculatedSize(act, 140), getCalculatedSize(act, 62), Bitmap.Config.ARGB_8888); 
+        Canvas canvas = new Canvas(bmp); 
+        View  layout =  LayoutInflater.from(context).inflate(R.layout.marker_map, null);
+        TextView titleView=(TextView) layout.findViewById(R.id.tvTitle); 
+        TextView descView=(TextView) layout.findViewById(R.id.tvDesc); 
+        titleView.setVisibility(View.VISIBLE);
+        titleView.setText(title);
+        descView.setText(price);
+        layout.setDrawingCacheEnabled(true); 
+        layout.measure(View.MeasureSpec.makeMeasureSpec(canvas.getWidth(), View.MeasureSpec.EXACTLY),
+        		View.MeasureSpec.makeMeasureSpec(canvas.getHeight(), View.MeasureSpec.EXACTLY)); 
+        layout.layout(0, 0, layout.getMeasuredWidth(), layout.getMeasuredHeight()); 
+        Bitmap map = layout.getDrawingCache();
+        Bitmap b = Bitmap.createBitmap(map, 0, 0, layout.getMeasuredWidth(),layout.getMeasuredHeight());
+        layout.setDrawingCacheEnabled(false); 
+       return b;
+	}
+	
+	   public static String  getPhoneNumber(Context mContext) {  
+		   String phoneNumber = null;
+		   ContentResolver resolver = mContext.getContentResolver(); 
+		   String[] PHONES_PROJECTION = new String[] {  
+			      Phone.NUMBER,Phone.CONTACT_ID }; 
+		    
+		   // 获取手机联系人  
+		   Cursor phoneCursor = resolver.query(Phone.CONTENT_URI,PHONES_PROJECTION, null, null, null);  
+		    
+		    
+		   if (phoneCursor != null) {  
+		       while (phoneCursor.moveToNext()) {  
+		    
+		       //得到手机号码  
+		        phoneNumber = phoneCursor.getString(0);  
+		       //当手机号码为空的或者为空字段 跳过当前循环  
+		       if (TextUtils.isEmpty(phoneNumber))  
+		           continue;  
+		       //photoid 大于0 表示联系人有头像 如果没有给此人设置头像则给他一个默认的  
+		       }  
+		       phoneCursor.close();  
+		   }  
+		   return phoneNumber;
+		      } 
+	   
+	   public static boolean isEmail(String email){     
+	        //String str="^([a-zA-Z0-9]*[-_]?[a-zA-Z0-9]+)*@([a-zA-Z0-9]*[-_]?[a-zA-Z0-9]+)+[\\.][A-Za-z]{2,3}([\\.][A-Za-z]{2})?$";
+	        //String str="^([a-z0-9A-Z]+[-|//.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?//.)+[a-zA-Z]{2,}$";  
+	        String str="[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
+	        Pattern p = Pattern.compile(str);     
+	        Matcher m = p.matcher(email);     
+	        return m.matches();     
+	    } 
+	   
+	   /**
+		 * 获得屏幕宽度
+		 * 
+		 * @param context
+		 * @return
+		 */
+		public static int getScreenWidth(Activity context) {
+			int screenWidth = context.getWindowManager().getDefaultDisplay()
+					.getWidth();
+			return screenWidth;
+		}
+		
+		public static int getScreenHeight(Activity context) {
+			int screenHeight = context.getWindowManager().getDefaultDisplay()
+					.getHeight();
+			return screenHeight;
+		}
+		
+		public static String getStrTime(String cc_time) {
+			String re_StrTime = null;
+
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			long lcc_time = Long.valueOf(cc_time);
+			re_StrTime = sdf.format(new Date(lcc_time * 1000L));
+
+			return re_StrTime;
+
+			}
+		
+		public static int getCalculatedSize(Activity context, int baseSize) {
+			try {
+				return baseSize * getDensityDpi(context)
+						/ DisplayMetrics.DENSITY_DEFAULT;
+			} catch (Exception ex) {
+				return baseSize;
+			} finally {
+				context = null;
+			}
+
+		}
+		
+		/**
+		 * 
+		 * @param context
+		 * @return
+		 */
+		public static int getDensityDpi(Activity context) {
+			DisplayMetrics metric = null;
+			int result = 0;
+			try {
+				metric = new DisplayMetrics();
+				context.getWindowManager().getDefaultDisplay().getMetrics(metric);
+
+				result = metric.densityDpi;
+				return result;
+			} catch (Exception ex) {
+				result = DisplayMetrics.DENSITY_DEFAULT;
+				return result;
+			} finally {
+				context = null;
+				metric = null;
+			}
+		}
+		
+		public static boolean validInput(String inputData, String regStr) {
+			Pattern pattern = null;
+			Matcher matcher = null;
+			try {
+				pattern = Pattern.compile(regStr);
+				matcher = pattern.matcher(inputData);
+				return matcher.matches();
+			} finally {
+				inputData = null;
+				regStr = null;
+				pattern = null;
+				matcher = null;
+			}
+		}
+
+}

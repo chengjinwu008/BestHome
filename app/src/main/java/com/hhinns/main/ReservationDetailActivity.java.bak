@@ -1,0 +1,175 @@
+package com.hhinns.main;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.TextView;
+
+import com.hhinns.dataprocess.AjaxStatus;
+import com.hhinns.dataprocess.BusinessResponse;
+import com.hhinns.library.ProtocolConst;
+import com.hhinns.model.ProccessForTip;
+import com.hhinns.model.RoomModel;
+
+public class ReservationDetailActivity extends BaseActivity implements
+		OnClickListener, BusinessResponse {
+
+	private Button mBtnLeft = null;
+	private TextView mTvTitle = null;
+	private Button mBtnRight = null;
+
+	private TextView tvType = null;
+	private TextView tvNum = null;
+	private TextView tvDate = null;
+	private TextView tvPrice = null;
+	private TextView tvName = null;
+	private TextView tvPhone = null;
+	private TextView tvRemark = null;
+	private TextView tvPay = null;
+	private TextView tvorderId =null;
+	private TextView tvCheckout = null;
+
+	private RoomModel dataModel = null;
+	private int price;
+	private String orderid = null;
+	private String idPay = null;
+	private TextView tvViewTip = null;
+
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		switch (v.getId()) {
+		case R.id.btnLeft:
+			finish();
+			break;
+		case R.id.btnRight:
+			dataModel.confirm(orderid);
+			break;
+		default:
+			break;
+		}
+	}
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_reservations_detail);
+		initComponents();
+	}
+
+	private void initComponents() {
+
+		if (null != getIntent()) {
+			orderid = getIntent().getStringExtra("id");
+			idPay = getIntent().getStringExtra("ispay");
+		}
+		
+//		hotel_id = "2";
+//		room_type = "5";
+//		maxNum = "3";
+//		special = "是";
+//		price = 168;
+//		room_type_text = "豪华大床";
+
+		mBtnLeft = (Button) findViewById(R.id.btnLeft);
+		mBtnLeft.setText(R.string.back);
+		mBtnLeft.setBackgroundResource(R.drawable.button_back);
+		mBtnLeft.setOnClickListener(this);
+		mBtnLeft.setVisibility(View.VISIBLE);
+
+		mTvTitle = (TextView) findViewById(R.id.tvTitle);
+		mTvTitle.setText(R.string.reservation_detail_title);
+		mTvTitle.setVisibility(View.VISIBLE);
+		
+		mBtnRight = (Button) findViewById(R.id.btnRight);
+		mBtnRight.setText("支付");
+		mBtnRight.setBackgroundResource(R.drawable.button_green);
+		mBtnRight.setOnClickListener(this);
+		if(null!=idPay&&idPay.equals("未支付"))
+		{
+		mBtnRight.setVisibility(View.VISIBLE);
+		}
+
+
+		tvNum = (TextView) findViewById(R.id.tvRoomNum);
+		tvType = (TextView) findViewById(R.id.tvType);
+		tvDate = (TextView) findViewById(R.id.tvDate);
+		tvPrice = (TextView) findViewById(R.id.tvPrice);
+		tvName = (TextView) findViewById(R.id.tvName);
+		tvPhone = (TextView) findViewById(R.id.tvPhone);
+		tvRemark = (TextView) findViewById(R.id.tvRemark);
+		
+		tvPay = (TextView)findViewById(R.id.tvPay);
+		tvorderId= (TextView)findViewById(R.id.tvorderId);
+		tvCheckout = (TextView)findViewById(R.id.tvCheckout);
+		tvViewTip = (TextView)findViewById(R.id.tvViewTip);
+		tvViewTip.setText(ProccessForTip.contentTip);
+
+		
+		dataModel = new RoomModel(getApplicationContext());
+		dataModel.addResponseListener(this);
+		dataModel.orderDetail(orderid);
+	}
+
+	@Override
+	public void OnMessageResponse(String url, JSONObject jo, AjaxStatus status)
+			throws JSONException {
+		// TODO Auto-generated method stub
+		String responseStatus = jo.optString("status");
+		if (null != responseStatus && responseStatus.equals("ok")) {
+			if(url.endsWith(ProtocolConst.ORDER_INFO))
+			{
+				tvType.setText(dataModel.orderDetail.get("name"));
+				tvPay.setText(dataModel.orderDetail.get("paytype"));
+				tvNum.setText(dataModel.orderDetail.get("count")+"间");
+				if(null!=dataModel.orderDetail.get("checkin"))
+				{
+					String  checkin =dataModel.orderDetail.get("checkin");
+					String [] str_list = checkin.split(" ");
+					tvDate.setText(str_list[0]);
+				}
+				if(null!=dataModel.orderDetail.get("checkout"))
+				{
+					String  checkout =dataModel.orderDetail.get("checkout");
+					String [] str_list = checkout.split(" ");
+				    tvCheckout.setText(str_list[0]);
+				}
+				if(null!=dataModel.orderDetail.get("amount"))
+				{
+					String  amount =dataModel.orderDetail.get("amount");
+//					String [] str_list = amount.split(".");
+					tvPrice.setText(amount.substring(0, amount.length()-2)+"元");
+				}
+				tvName.setText(dataModel.orderDetail.get("custormer"));
+				tvPhone.setText(dataModel.orderDetail.get("phone"));
+				tvorderId.setText(orderid);
+				if(dataModel.orderDetail.get("state").equals("未支付"))
+				{
+					tvRemark.setText(dataModel.orderDetail.get("state"));
+				}else
+				{
+				tvRemark.setText(dataModel.orderDetail.get("remark"));
+				}
+			}
+		}else if(null != responseStatus && responseStatus.equals("OK"))
+		{
+			Intent intent = new Intent(getApplicationContext(),BannerWebActivity.class);
+			intent.putExtra("url", dataModel.pay_url);
+			startActivity(intent);
+			finish();
+		}
+	}
+
+	@Override
+	protected void onActivityResult(int arg0, int res, Intent arg2) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(arg0, res, arg2);
+	}
+
+}

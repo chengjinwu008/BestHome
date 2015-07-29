@@ -1,0 +1,32 @@
+package com.hhinns.main;
+
+import com.hhinns.library.ScreenManager;
+import com.umeng.analytics.MobclickAgent;
+
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+
+public class BaseActivity extends FragmentActivity {
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		ScreenManager.getScreenManager().pushActivity(this);
+	}
+	
+
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		MobclickAgent.onPause(this);
+	}
+	
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		MobclickAgent.onResume(this); // 统计时长
+	}
+
+}

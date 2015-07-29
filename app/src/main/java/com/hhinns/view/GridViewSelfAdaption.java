@@ -1,0 +1,127 @@
+package com.hhinns.view;
+
+import java.util.Map;
+
+import org.json.JSONException;
+
+import com.hhinns.library.CommonUtils;
+import com.hhinns.main.MainActivity;
+import com.hhinns.main.R;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.provider.ContactsContract;
+import android.util.AttributeSet;
+import android.view.Gravity;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+public class GridViewSelfAdaption extends LinearLayout{
+
+	private Activity mContext;
+	private LinearLayout parentView;
+	private ImageView imgViewOne;
+	private ImageView imgViewTwo;
+	private ImageView imgViewThree;
+	private TextView tvViewOne;
+	private TextView tvViewTwo;
+	private TextView tvViewThree;
+	public GridViewSelfAdaption(Context context, AttributeSet attrs) {
+		super(context, attrs);
+		// TODO Auto-generated constructor stub
+	}
+	
+
+
+	private void initView(int i)
+	{
+		if(null==parentView)
+		{
+			LinearLayout.LayoutParams lp = new LayoutParams(LayoutParams.FILL_PARENT, 
+					(CommonUtils.getScreenHeight(mContext)-CommonUtils.getCalculatedSize(mContext, 100))/3);
+			lp.gravity = Gravity.CENTER;
+			parentView = (LinearLayout)findViewById(R.id.parentView);
+			parentView.setLayoutParams(lp);
+		}
+		if(null==imgViewOne)
+		{
+			imgViewOne = (ImageView)findViewById(R.id.imgViewOne);
+			imgViewOne.setOnClickListener(listener);
+			imgViewOne.setTag(i*3);
+		}
+		if(null==tvViewOne)
+		{
+			tvViewOne = (TextView)findViewById(R.id.tvViewOne);
+		}
+		if(null==imgViewTwo)
+		{
+			imgViewTwo = (ImageView)findViewById(R.id.imgViewTwo);
+			imgViewTwo.setOnClickListener(listener);
+			imgViewTwo.setTag(i*3+1);
+		}
+		if(null==tvViewTwo)
+		{
+			tvViewTwo = (TextView)findViewById(R.id.tvViewTwo);
+		}
+		if(null==imgViewThree)
+		{
+			imgViewThree = (ImageView)findViewById(R.id.imgViewThree);
+			imgViewThree.setOnClickListener(listener);
+			imgViewThree.setTag(i*3+2);
+		}
+		if(null==tvViewThree)
+		{
+			tvViewThree = (TextView)findViewById(R.id.tvViewThree);
+		}
+	}
+	public void bindData(Activity context,int i)
+	{
+		mContext = context;
+		initView(i);
+		
+		if(i*3<MainActivity.mList.size()&&null!=MainActivity.mList.get(i*3))
+		{
+			imgViewOne.setBackgroundResource(Integer.parseInt(MainActivity.mList.get(i*3).get("itemImage")));
+			tvViewOne.setText(MainActivity.mList.get(i*3).get("itemText"));
+		}
+		if(i*3+1<MainActivity.mList.size()&&null!=MainActivity.mList.get(i*3+1))
+		{
+			imgViewTwo.setBackgroundResource(Integer.parseInt(MainActivity.mList.get(i*3+1).get("itemImage")));
+			tvViewTwo.setText(MainActivity.mList.get(i*3+1).get("itemText"));
+		}
+		if(i*3+2<MainActivity.mList.size()&&null!=MainActivity.mList.get(i*3+2))
+		{
+			imgViewThree.setBackgroundResource(Integer.parseInt(MainActivity.mList.get(i*3+2).get("itemImage")));
+			tvViewThree.setText(MainActivity.mList.get(i*3+2).get("itemText"));
+		}
+	}
+	
+	private OnClickListener listener = new OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+			Map<String, String> map = MainActivity.mList.get(Integer.parseInt(v.getTag().toString()));
+			if (null != map && !map.isEmpty()) {
+				Intent intent = null;
+				if(!map.get("itemText").equals("邀请好友"))
+				{
+				 intent = new Intent(mContext,
+						CommonUtils.buildComponent(mContext,
+								map.get("itemRoute"))); 
+				intent.putExtra("title", map.get("itemText"));
+				mContext.startActivity(intent);
+				}else 
+				{
+					intent = new Intent();  
+				    intent.setAction(Intent.ACTION_PICK);  
+				    intent.setData(ContactsContract.Contacts.CONTENT_URI);  
+				    mContext.startActivityForResult(intent, 1);  
+				}
+			}
+		}
+	};
+}

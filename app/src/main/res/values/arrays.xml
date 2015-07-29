@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="menu_item">
+        <item>酒店预订#icon_order#OrderActivity</item>
+        <item>今日特价#icon_spec#FavorableInfoActivity</item>
+        <item>周边#icon_area#NearbyHotelActivity</item>
+        <item>优惠活动#icon_fav#FavorableListActivity</item>
+        <item>精品推荐#icon_recommend#RecommendationListActivity</item>
+        <item>会员中心#icon_member#MemberCenter</item>
+        <item>关于我们#icon_aboutus#AboutActivity</item>
+        <item>邀请好友#icon_invite#0</item>
+        <item>更多设置#icon_more#SetActivity</item>
+    </string-array>
+    <string-array name="hotelinfo_menu_item">
+        <item>房间#icon_home#0#RoomListFragment</item>
+        <item>简介#icon_intro#1#HotelIntroFragment</item>
+        <item>周边#icon_nearby#2#NearbyFacilityFragment</item>
+        <item>地图#icon_map#3#RouteLineFragment</item>
+    </string-array>
+
+</resources>

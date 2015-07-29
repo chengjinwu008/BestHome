@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/icon_bg"
+    android:orientation="vertical" >
+
+    <include layout="@layout/layout_titlebar" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="40dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/infoTextColor"
+            android:textSize="16sp"
+            android:text="@string/myinfo_name"/>
+
+        <EditText
+            android:id="@+id/etName"
+            android:layout_width="fill_parent"
+            android:layout_height="36dp"
+            android:imeOptions="actionNext"
+            android:paddingLeft="8dp"
+            android:background="@drawable/bg_et" />
+    </LinearLayout>
+
+     <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/infoTextColor"
+            android:textSize="16sp"
+            android:text="@string/myinfo_phone"/>
+
+        <EditText
+            android:id="@+id/etPhone"
+           android:layout_width="fill_parent"
+            android:layout_height="36dp"
+            android:imeOptions="actionNext"
+            android:paddingLeft="8dp"
+             android:inputType="number"
+            android:background="@drawable/bg_et" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/infoTextColor"
+            android:textSize="16sp"
+            android:text="身份证号:"/>
+
+        <EditText
+            android:id="@+id/etAddress"
+            android:layout_width="fill_parent"
+            android:layout_height="36dp"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:paddingLeft="8dp"
+            android:background="@drawable/bg_et" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/infoTextColor"
+            android:textSize="16sp"
+            android:text="@string/myinfo_sex"/>
+
+        <EditText
+            android:id="@+id/etSex"
+            android:layout_width="fill_parent"
+            android:layout_height="36dp"
+            android:imeOptions="actionDone"
+            android:paddingLeft="8dp"
+            android:background="@drawable/bg_et" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/infoTextColor"
+            android:textSize="16sp"
+            android:text="@string/myinfo_emall"/>
+
+        <EditText
+            android:id="@+id/etEmall"
+            android:layout_width="fill_parent"
+            android:layout_height="36dp"
+            android:imeOptions="actionDone"
+            android:paddingLeft="8dp"
+            android:background="@drawable/bg_et" />
+    </LinearLayout>
+    
+       <Button
+            android:id="@+id/btnSubmit"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:background="@drawable/button_red"
+            android:text="@string/submit"
+            android:textColor="@android:color/white" />
+
+</LinearLayout><!-- From: file:/C:/Users/android/Desktop/BestHome2/app/src/main/res/layout/activity_myinfo_edit.xml -->

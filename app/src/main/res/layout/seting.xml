@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/icon_bg"
+    android:orientation="vertical" >
+<include layout="@layout/layout_titlebar"/>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="6dp"
+        android:layout_marginRight="6dp"
+        android:layout_marginTop="30.0dip"
+        android:background="@drawable/icon_bg_inpu"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:id="@+id/linFeedback"
+            android:layout_width="fill_parent"
+            android:layout_height="48.0dip" 
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+            
+            <TextView
+                style="@style/membertitle"
+                android:text="@string/feedback_title"
+                android:textColor="#4D4D4D"
+                 />
+
+           <ImageView
+        android:layout_width="10dp"
+        android:layout_height="20dp"
+        android:layout_gravity="center_vertical"
+        android:scaleType="fitXY"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:src="@drawable/icon_arrow_gray" />
+        </LinearLayout>
+
+      <TextView
+        style="@style/memberline"  
+         />
+
+        <LinearLayout
+            android:id="@+id/linUpdate"
+            android:layout_width="fill_parent"
+            android:layout_height="48.0dip" 
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/membertitle"
+                android:text="@string/setting_update"
+                  android:textColor="#4D4D4D"
+                 />
+
+            <ImageView
+        android:layout_width="10dp"
+        android:layout_height="20dp"
+        android:layout_gravity="center_vertical"
+        android:scaleType="fitXY"
+        android:layout_marginLeft="16dp"
+         android:layout_marginRight="16dp"
+        android:src="@drawable/icon_arrow_gray" />
+        </LinearLayout>
+
+        <TextView style="@style/memberline" />
+        <LinearLayout
+            android:id="@+id/linFind"
+            android:layout_width="fill_parent"
+            android:layout_height="48.0dip" 
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/membertitle"
+                android:text="@string/setting_find"
+                  android:textColor="#4D4D4D"
+                 />
+
+            <ImageView
+        android:layout_width="10dp"
+        android:layout_height="20dp"
+        android:layout_gravity="center_vertical"
+        android:scaleType="fitXY"
+        android:layout_marginLeft="16dp"
+         android:layout_marginRight="16dp"
+        android:src="@drawable/icon_arrow_gray" />
+        </LinearLayout>
+
+        <TextView style="@style/memberline" />
+
+        <LinearLayout
+            android:id="@+id/linChangeaccount"
+            android:layout_width="fill_parent"
+            android:layout_height="48.0dip"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/membertitle"
+                android:text="@string/setting_changaccount"
+                  android:textColor="#4D4D4D"
+                 />
+
+            <ImageView
+        android:layout_width="10dp"
+        android:layout_height="20dp"
+        android:layout_gravity="center_vertical"
+        android:scaleType="fitXY"
+        android:layout_marginLeft="16dp"
+         android:layout_marginRight="16dp"
+        android:src="@drawable/icon_arrow_gray" />
+        </LinearLayout>
+        <TextView style="@style/memberline" />
+
+        <LinearLayout
+            android:id="@+id/linChangePWD"
+            android:layout_width="fill_parent"
+            android:layout_height="48.0dip"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/membertitle"
+                android:text="@string/setting_changpwd"
+                  android:textColor="#4D4D4D"
+                 />
+
+            <ImageView
+        android:layout_width="10dp"
+        android:layout_height="20dp"
+        android:layout_gravity="center_vertical"
+        android:scaleType="fitXY"
+        android:layout_marginLeft="16dp"
+         android:layout_marginRight="16dp"
+        android:src="@drawable/icon_arrow_gray" />
+        </LinearLayout>
+       <!--   <TextView style="@style/memberline" />
+        <LinearLayout
+            android:id="@+id/linExit"
+            android:layout_width="290.0dip"
+            android:gravity="center_vertical"
+            android:layout_height="48.0dip" >
+
+            <TextView
+                style="@style/membertitle"
+                android:text="@string/setting_exitapp"
+                  android:textColor="#4D4D4D"
+                />
+
+           <ImageView
+        android:layout_width="10dp"
+        android:layout_height="20dp"
+        android:layout_gravity="center_vertical"
+        android:scaleType="fitXY"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:src="@drawable/icon_arrow_gray" />
+        </LinearLayout> -->
+    </LinearLayout>
+    
+    <Button
+            android:id="@+id/btnExit"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/button_red"
+            android:text="@string/setting_exitapp"
+            android:textColor="@android:color/white" />
+</LinearLayout>
