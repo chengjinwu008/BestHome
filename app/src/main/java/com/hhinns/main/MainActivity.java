@@ -272,15 +272,14 @@ public class MainActivity extends BaseActivity implements OnClickListener ,Busin
 			if (location.getLocType() == BDLocation.TypeNetWorkLocation) {
 				// 获取反地理编码。 只有使用网络定位的情况下，才能获取当前位置的反地理编码描述。
 				if (location.hasAddr()) {
-//					Log.e("LOCATION",location.getLatitude()+";"+location.getLongitude()+";"+location.getCityCode()+location.getCity());
 
 					address = location.getAddrStr();
-//					mLocation.setLatitude(String.valueOf(location.getLatitude()));
-					mLocation.setLatitude("34.2317910000");
-//					mLocation.setLongitude(String.valueOf(location.getLongitude()));
-					mLocation.setLongitude("108.9465950000");
-//					mLocation.setCity(String.valueOf(location.getCity()));
-					mLocation.setCity("西安");
+					mLocation.setLatitude(String.valueOf(location.getLatitude()));
+//					mLocation.setLatitude("34.2317910000");
+					mLocation.setLongitude(String.valueOf(location.getLongitude()));
+//					mLocation.setLongitude("108.9465950000");
+					mLocation.setCity(String.valueOf(location.getCity()));
+//					mLocation.setCity("西安");
 					mLocation.setCityid(String.valueOf(location.getCityCode()));
 				}
 			}
